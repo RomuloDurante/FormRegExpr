@@ -1,7 +1,5 @@
 (function(global) {
-     //=>MAIN CLOSURE___________________________
-           
-     //________________________>>EndMainClosure 
+
 //DATA MODULE>>>
   var _dt = (function() {        
                 //=>closure___________________________
@@ -11,17 +9,20 @@
                 //________________________>>EndClosure
 
                 var dataPrototype = {
-                    
+                   setData: function(obj) {
+                      this.Data = obj;
+                   } 
                 }
 
                 var _dt = Object.create(dataPrototype);
+                    _dt.Data = {}
       return _dt;
   }());
 
 /*********************************************** */
 //UI MODULE>>>
   var _ui = (function() {        
-                //=>closure___________________________
+                 //=>closure___________________________
 
                   // shorthands to Dom manipulation 
                   var id$ = function(id){return document.getElementById(id)}
@@ -41,10 +42,16 @@
 
                     // set the obj to validate input values
                     validadeInputvalues: function(obj){
-                      this.validateFunction(obj, 'name'); // validade name
-                      this.validateFunction(obj, 'zipCode'); // validade zipCode
-                      this.validateFunction(obj, 'email'); // validade zipCode
-                      this.validateFunction(obj, 'phone'); // validade phone
+                      // if the whole validate verification is rigth return true else return false
+                    if( this.validateFunction(obj, 'name') === true &&   // validade name
+                      this.validateFunction(obj, 'zipCode') === true &&  // validade zipCode
+                      this.validateFunction(obj, 'email') === true &&    // validade zipCode
+                      this.validateFunction(obj, 'phone') === true) {    // validade phone
+
+                        return true;
+                      } else {
+                        return false;
+                      }
                     },
                     
                     // verify if the values sent through inputs are correct
@@ -53,9 +60,11 @@
                       if(!this.Dom[prop].reg.test(obj[prop])){
                           //add class                         
                           this.Dom[prop][prop].classList.add('is-invalid');
+                          return false;
                       } else {
                           //remove class
                           this.Dom[prop][prop].classList.remove('is-invalid');
+                          return true;
                       }
                     }
                 }
@@ -97,8 +106,15 @@
                       // call the necessary methods to get values from form
                       function getValues(e) {
                         var values = _ui.getInputValues();
-                        console.log(values);
-                       _ui.validadeInputvalues(values);
+
+                       if(_ui.validadeInputvalues(values)){ // if the validation is rigth send data to DATA module
+                         _dt.setData(values);
+                         console.log(_dt.Data);
+                       } 
+
+
+
+
                         e.preventDefault();
                        }
                   
