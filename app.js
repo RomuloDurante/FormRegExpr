@@ -2,11 +2,6 @@
 
 //DATA MODULE>>>
   var _dt = (function() {        
-                //=>closure___________________________
-                
-              
-                
-                //________________________>>EndClosure
 
                 var dataPrototype = {
                    setData: function(obj) {
@@ -15,7 +10,7 @@
                 }
 
                 var _dt = Object.create(dataPrototype);
-                    _dt.Data = {}
+                    _dt.Data = null
       return _dt;
   }());
 
@@ -42,7 +37,7 @@
 
                     // set the obj to validate input values
                     validadeInputvalues: function(obj){
-                      // if the whole validate verification is rigth return true else return false
+                      // if the whole validate verification is rightreturn true else return false
                     if( this.validateFunction(obj, 'name') === true &&   // validade name
                       this.validateFunction(obj, 'zipCode') === true &&  // validade zipCode
                       this.validateFunction(obj, 'email') === true &&    // validade zipCode
@@ -107,18 +102,27 @@
                       function getValues(e) {
                         var values = _ui.getInputValues();
 
-                       if(_ui.validadeInputvalues(values)){ // if the validation is rigth send data to DATA module
+                       if(_ui.validadeInputvalues(values)){ // if the validation is right send data to DATA module
                          _dt.setData(values);
-                         console.log(_dt.Data);
+                         _ui.Dom.btn.style.display = 'block';
                        } 
-
-
-
-
                         e.preventDefault();
                        }
                   
-                  
+                       function useData(e){
+                        /**This is am example
+                         * use the _dt.Data object when your click on submit
+                         * use whatever backend language with submit
+                         */
+                        if(_dt.Data === null){
+                          console.log('Error');
+                        } else {
+                          console.log(_dt.Data);
+  
+                        }
+  
+                        e.preventDefault();
+                       }
                   //________________________>>EndClosure
 
                   var appSetup = {
@@ -127,6 +131,7 @@
                         _ui.Dom.zipCode.zipCode.addEventListener('blur', getValues);
                         _ui.Dom.email.email.addEventListener('blur', getValues);
                         _ui.Dom.phone.phone.addEventListener('blur', getValues);
+                        _ui.Dom.btn.addEventListener('click', useData);
                       }
                   }
 
@@ -135,6 +140,4 @@
     return app;
 
   }(_dt, _ui));
-
-console.log(_ui);
 }(window));
