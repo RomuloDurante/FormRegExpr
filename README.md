@@ -1,4 +1,6 @@
-# validateFormRegularExpressions
-Example of the module JS to validate input values with regular expressions
+# validate Form with Regular Expressions
+Example of the moduleJS to validate input values with regular expressions.
 
-## test Romulo
+You can use this code without change your aplication because it's inside an IIFE.
+
+
