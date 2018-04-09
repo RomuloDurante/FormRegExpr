@@ -93,7 +93,7 @@
 
   }());
 
-/************************************************** */
+/***************************************************/
 //APP MODULE>>> THE APP MODULE IS THE ONLY OBJECT SEEN IN THE GLOBAL CONTEXT
   global.app = (function(_dt, _ui) {
                   //=>closure___________________________
@@ -137,7 +137,6 @@
 
                   var app = Object.create(appSetup);
                   app.setupEvents();
-    return app;
-
+     return app;
   }(_dt, _ui));
 }(window));
